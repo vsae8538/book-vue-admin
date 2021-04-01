@@ -37,18 +37,17 @@
           {{ scope.row.memo }}
         </template>
       </el-table-column>
-<!--      <el-table-column class-name="status-col" label="Status" width="110" align="center">
+      <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+          <el-button type="primary" size="mini" @click="editUser(scope.row.id)">
+            編輯
+          </el-button>
+          <el-button size="mini" type="danger" @click="deleteUser(scope.row.id)">
+            刪除
+          </el-button>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
-        </template>
-      </el-table-column> -->
-    </el-table>
+      </el-table>
   </div>
 </template>
 
@@ -70,12 +69,12 @@ export default {
     return {
 //      list
       list: [{
-        "id": 1,
-	      "username" : "admin1",
-	      "password" : "admin1",
-        "email" : "admin@gmail.com",
-        "telephone" : "0978990199",
-        "memo" : "test"
+        id: 1,
+	      username : "admin1",
+	      password : "admin1",
+        email : "admin@gmail.com",
+        telPhone : "0978990199",
+        memo : "test"
       }
       ]
     }
@@ -84,6 +83,34 @@ export default {
     this.fetchData()
   },
   methods: {
+    editUser(id){
+      this.$router.push("/editUser/index/"+id)
+    },
+    deleteUser(id){
+      var vm = this;
+      this.axios({
+        method: 'DELETE',
+        url: 'http://localhost:8085/user/delete/'+id
+      }).then(function(resp){
+        console.log(resp);
+        console.log(resp.data.message)
+        if(resp.data.message == "success."){
+          //彈框
+          vm.$message({
+            message: '刪除成功',
+            type: 'success'
+          });
+          vm.fetchData(); //更新使用者列表
+        }else{
+          vm.$message({
+            message: '刪除失敗',
+            type: 'error'
+          });
+        }
+      }).catch(function(error){
+          vm.$message.error('刪除失敗');
+      });
+    },
     fetchData() {
         var vm = this;
         this.axios({

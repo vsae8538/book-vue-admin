@@ -98,6 +98,19 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/editUser',
+    hidden: true,
+    component: Layout,
+    children: [
+      {
+        path: 'index/:id',
+        name: 'editUser',
+        component: () => import('@/views/editUser/index'),
+        meta: { title: 'editUser', icon: 'form' }
+      }
+    ]
+  },
+  {
     path: '/form',
     component: Layout,
     children: [

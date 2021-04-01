@@ -75,11 +75,11 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '111111'
+        password: 'admin'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        //username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        //password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
       passwordType: 'password',
@@ -106,20 +106,45 @@ export default {
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
-          }).catch(() => {
-            this.loading = false
-          })
-        } else {
-          console.log('error submit!!')
-          return false
+      var vm = this;
+      this.axios({
+        method: 'POST',
+        url: 'http://localhost:8085/system/login',
+        data: {
+            username: vm.loginForm.username,
+            password: vm.loginForm.password
         }
-      })
+      }).then(function(resp){
+        console.log(resp)
+        if(resp.data.message == 'success'){
+            vm.$message({
+              message: '登入成功',
+              type: 'success'
+            });
+            vm.$router.push({ path: vm.redirect || '/' });
+        }else{
+          vm.$message.error('登入失敗,請檢查輸入的帳密');
+        }
+      }).catch(function(error){
+        console.log(error);
+        vm.$message.error('發生錯誤');
+      });
+
+
+      // this.$refs.loginForm.validate(valid => {
+      //   if (valid) {
+      //     this.loading = true
+      //     this.$store.dispatch('user/login', this.loginForm).then(() => {
+      //       this.$router.push({ path: this.redirect || '/' })
+      //       this.loading = false
+      //     }).catch(() => {
+      //       this.loading = false
+      //     })
+      //   } else {
+      //     console.log('error submit!!')
+      //     return false
+      //   }
+      // })
     }
   }
 }

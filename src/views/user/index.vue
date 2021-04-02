@@ -1,5 +1,12 @@
 <template>
   <div class="app-container">
+
+    <div align="right">
+      <el-button type="success" @click="addUser()">新增使用者</el-button>
+    </div>
+    <div align="right">
+      <span></br></span>
+    </div>
     <el-table
       :data="list"
       element-loading-text="Loading"
@@ -83,8 +90,11 @@ export default {
     this.fetchData()
   },
   methods: {
+    addUser(){
+      this.$router.push("/addUser/index");
+    },
     editUser(id){
-      this.$router.push("/editUser/index/"+id)
+      this.$router.push("/editUser/index/"+id);
     },
     deleteUser(id){
       var vm = this;

@@ -55,41 +55,51 @@
         </template>
       </el-table-column>
       </el-table>
+
+      <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
   </div>
+
+    
+
 </template>
 
 <script>
-import { getList } from '@/api/table'
+
+import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  // filters: {
-  //   statusFilter(status) {
-  //     const statusMap = {
-  //       published: 'success',
-  //       draft: 'gray',
-  //       deleted: 'danger'
-  //     }
-  //     return statusMap[status]
-  //   }
-  // },
+  components: { Pagination },
   data() {
     return {
-//      list
-      list: [{
-        id: 1,
-	      username : "admin1",
-	      password : "admin1",
-        email : "admin@gmail.com",
-        telPhone : "0978990199",
-        memo : "test"
+      list: null,
+      total: 0,
+      listQuery: {
+        page: 1,
+        limit: 20
       }
-      ]
     }
   },
   created() {
-    this.fetchData()
+    //this.fetchData()
+    this.getList()
   },
   methods: {
+    getList() {
+      var vm = this;
+      this.axios({
+        method:'POST',
+        url:'http://localhost:8085/user/query',
+        data:{
+          pageIndex: vm.listQuery.page,
+	        pageSize: vm.listQuery.limit
+        }
+      }).then(function(resp){
+          vm.list = resp.data.data.pageData
+          vm.total = resp.data.data.total
+          console.log(resp)
+        });
+    },
+
     addUser(){
       this.$router.push("/addUser/index");
     },

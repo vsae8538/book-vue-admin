@@ -1,20 +1,8 @@
 <template>
   <div class="app-container">
       <el-form ref="form" :model="form" label-width="120px">
-        <el-form-item label="使用者名稱">
-          <el-input v-model="user.userName" />
-        </el-form-item>
-        <el-form-item label="密碼">
-          <el-input v-model="user.password" />
-        </el-form-item>
-          <el-form-item label="電子信箱">
-        <el-input v-model="user.email" />
-        </el-form-item>
-          <el-form-item label="電話">
-        <el-input v-model="user.telPhone" />
-        </el-form-item>
-        <el-form-item label="備註">
-          <el-input v-model="user.memo" />
+        <el-form-item label="目錄名稱">
+          <el-input v-model="category.categoryName" />
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit">修改</el-button>
@@ -28,13 +16,9 @@
 export default {
   data() {
     return {
-      user: {
+      category: {
         id: -1,
-	      userName : "(Empty)",
-	      password : "(Empty)",
-        email : "(Empty)",
-        telPhone : "(Empty)",
-        memo : "(Empty)"
+	      categoryName : "(Empty)",
       },
       msg : ''
     }
@@ -50,10 +34,10 @@ export default {
         var vm = this;
         this.axios({
           method: 'GET',
-          url: 'http://localhost:8085/user/query/'+id
+          url: 'http://localhost:8085/category/query/'+id
           }).then(function(resp){
             console.log(resp)
-            vm.user = resp.data.data;
+            vm.category = resp.data.data;
           })
     },
     onSubmit() {
@@ -61,8 +45,8 @@ export default {
       var msg = vm.msg;
       this.axios({
         method: 'POST',
-        url: 'http://localhost:8085/user/edit',
-        data: vm.user
+        url: 'http://localhost:8085/category/edit',
+        data: vm.category
         }).then(function(resp){
           console.log(resp)
           msg = resp.data.data.message;
@@ -70,7 +54,7 @@ export default {
             message: '修改成功',
             type: 'success'
           });
-          vm.$router.push("/user")
+          vm.$router.push("/category")
         }).catch((error) => { 
           console.error(error) 
           msg = error;

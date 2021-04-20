@@ -77,6 +77,47 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/category',
+    component: Layout,
+    redirect: '/category/table',
+    name: 'Category',
+    meta: { title: 'Category', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'table',
+        name: 'category',
+        component: () => import('@/views/category/index'),
+        meta: { title: 'Category', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/editCategory',
+    hidden: true,
+    component: Layout,
+    children: [
+      {
+        path: 'index/:id',
+        name: 'editCategory',
+        component: () => import('@/views/editCategory/index'),
+        meta: { title: 'editCategory', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/addCategory',
+    hidden: true,
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'addCategory',
+        component: () => import('@/views/addCategory/index'),
+        meta: { title: 'addCategory', icon: 'form' }
+      }
+    ]
+  },
+  {
     path: '/user',
     component: Layout,
     redirect: '/user/table',
@@ -85,15 +126,9 @@ export const constantRoutes = [
     children: [
       {
         path: 'table',
-        name: 'Table',
+        name: 'User',
         component: () => import('@/views/user/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: { title: 'User', icon: 'table' }
       }
     ]
   },

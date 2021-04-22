@@ -57,6 +57,7 @@ export const constantRoutes = [
 
   {
     path: '/example',
+    hidden: true,
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
@@ -76,6 +77,7 @@ export const constantRoutes = [
       }
     ]
   },
+
   {
     path: '/category',
     component: Layout,
@@ -91,6 +93,7 @@ export const constantRoutes = [
       }
     ]
   },
+
   {
     path: '/editCategory',
     hidden: true,
@@ -104,6 +107,7 @@ export const constantRoutes = [
       }
     ]
   },
+
   {
     path: '/addCategory',
     hidden: true,
@@ -117,6 +121,7 @@ export const constantRoutes = [
       }
     ]
   },
+
   {
     path: '/user',
     component: Layout,
@@ -132,6 +137,7 @@ export const constantRoutes = [
       }
     ]
   },
+
   {
     path: '/editUser',
     hidden: true,
@@ -145,6 +151,7 @@ export const constantRoutes = [
       }
     ]
   },
+  
   {
     path: '/addUser',
     hidden: true,
@@ -158,6 +165,23 @@ export const constantRoutes = [
       }
     ]
   },
+
+  {
+    path: '/book',
+    component: Layout,
+    redirect: '/book/table',
+    name: 'Book',
+    meta: { title: 'Book', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'table',
+        name: 'Book',
+        component: () => import('@/views/book/index'),
+        meta: { title: 'Book', icon: 'table' }
+      }
+    ]
+  },
+
   {
     path: '/form',
     component: Layout,
@@ -170,6 +194,7 @@ export const constantRoutes = [
       }
     ]
   },
+  
 
   {
     path: '/nested',

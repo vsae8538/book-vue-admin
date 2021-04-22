@@ -183,6 +183,20 @@ export const constantRoutes = [
   },
 
   {
+    path: '/addBook',
+    hidden: true,
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'addBook',
+        component: () => import('@/views/addBook/index'),
+        meta: { title: 'addBook', icon: 'form' }
+      }
+    ]
+  },
+
+  {
     path: '/form',
     component: Layout,
     children: [

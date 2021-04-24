@@ -135,7 +135,8 @@ export default {
             message: '刪除成功',
             type: 'success'
           });
-          vm.fetchData(); //更新書籍列表
+          //vm.fetchData(); //更新書籍列表
+          vm.getList();
         }else{
           vm.$message({
             message: '刪除失敗',

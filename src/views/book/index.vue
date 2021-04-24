@@ -136,6 +136,7 @@ export default {
             type: 'success'
           });
           //vm.fetchData(); //更新書籍列表
+          //剩餘一筆資料時,刪除後需要重新整理後才可顯示NO data
           vm.getList();
         }else{
           vm.$message({

@@ -40,7 +40,12 @@
       </el-table-column>
       <el-table-column label="是否公開" width="80" align="center">
         <template slot-scope="scope">
-          {{ scope.row.isPublish }}
+          <el-switch
+            v-model="scope.row.isPublish == 1 ? true : false"
+             active-color="#13ce66"
+             inactive-color="#ff4949"
+            disabled>
+          </el-switch>
         </template>
       </el-table-column>
       <el-table-column label="書籍目錄" width="100" align="center">

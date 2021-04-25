@@ -120,6 +120,7 @@ export default {
             message: '刪除成功',
             type: 'success'
           });
+          vm.list = null;
           vm.fetchData(); //更新使用者列表
         }else{
           vm.$message({

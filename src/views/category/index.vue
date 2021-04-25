@@ -100,6 +100,7 @@ export default {
             message: '刪除成功',
             type: 'success'
           });
+          vm.list = null;
           vm.getList(); //更新目錄列表
         }else{
           vm.$message({

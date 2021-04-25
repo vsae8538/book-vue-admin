@@ -197,6 +197,20 @@ export const constantRoutes = [
   },
 
   {
+    path: '/editBook',
+    hidden: true,
+    component: Layout,
+    children: [
+      {
+        path: 'index/:id',
+        name: 'editBook',
+        component: () => import('@/views/editBook/index'),
+        meta: { title: 'editBook', icon: 'form' }
+      }
+    ]
+  },
+
+  {
     path: '/form',
     component: Layout,
     children: [

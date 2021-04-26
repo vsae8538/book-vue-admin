@@ -165,7 +165,21 @@ export const constantRoutes = [
       }
     ]
   },
-
+  {
+    path: '/borrow',
+    component: Layout,
+    redirect: '/borrow/table',
+    name: 'Borrow',
+    meta: { title: 'Borrow', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'table',
+        name: 'Borrow',
+        component: () => import('@/views/borrow/index'),
+        meta: { title: 'Borrow', icon: 'table' }
+      }
+    ]
+  },
   {
     path: '/book',
     component: Layout,
@@ -285,6 +299,7 @@ export const constantRoutes = [
 
   {
     path: 'external-link',
+    hidden: true,
     component: Layout,
     children: [
       {

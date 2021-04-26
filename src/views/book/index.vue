@@ -26,11 +26,10 @@
       </el-table-column>
       <el-table-column label="書籍封面"  width="200" align="center">
         <template slot-scope="scope">
-          <!--{{ scope.row.imageUrl }}-->
               <el-image
                   style="width: 100px; height: 100px"
                   :src="scope.row.imageUrl"
-                  ></el-image>
+              ></el-image>
         </template>
       </el-table-column>
       <el-table-column label="作者" width="100" align="center">

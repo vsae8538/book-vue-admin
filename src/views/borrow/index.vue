@@ -1,5 +1,11 @@
 <template>
   <div class="app-container">
+      <div align="right">
+      <el-button type="success" @click="addBorrow()">新增借閱</el-button>
+    </div>
+    <div align="right">
+      <span></br></span>
+    </div>
     <el-table
       :data="list"
       element-loading-text="Loading"
@@ -100,6 +106,9 @@ export default {
           vm.total = resp.data.data.total
           console.log(resp)
         });
+    },
+    addBorrow(){
+      this.$router.push("/addBorrow/index");
     }
   }
 }

@@ -181,6 +181,19 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/addBorrow',
+    hidden: true,
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'addBorrow',
+        component: () => import('@/views/addBorrow/index'),
+        meta: { title: 'addBorrow', icon: 'form' }
+      }
+    ]
+  },
+  {
     path: '/book',
     component: Layout,
     redirect: '/book/table',

@@ -166,17 +166,23 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/borrow',
+    path: '/bookMange',
     component: Layout,
-    redirect: '/borrow/table',
-    name: 'Borrow',
+    redirect: '/bookMange/borrow',
+    name: 'Book Mange',
     meta: { title: 'Borrow', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
+        path: 'borrow',
         name: 'Borrow',
         component: () => import('@/views/borrow/index'),
         meta: { title: 'Borrow', icon: 'table' }
+      },      
+      {
+        path: 'expired',
+        name: 'Expired',
+        component: () => import('@/views/expired/index'),
+        meta: { title: 'Expired', icon: 'table' }
       }
     ]
   },

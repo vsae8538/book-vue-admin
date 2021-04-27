@@ -35,18 +35,15 @@ export default {
       deadlineDateValue: new Date() 
     }
   },
-
   created(){
 
   },
-
   methods: {
-
     onSubmit() {
       var vm = this;
       this.axios({
         method: 'POST',
-        url: 'http://localhost:8085/borrow/add',
+        url: 'http://localhost:8085/borrowing/add',
         data: vm.borrow
         }).then(function(resp){
           console.log(resp)

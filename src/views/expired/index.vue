@@ -1,11 +1,5 @@
 <template>
   <div class="app-container">
-      <div align="right">
-      <el-button type="success" @click="addBorrow()">新增借閱</el-button>
-    </div>
-    <div align="right">
-      <span></br></span>
-    </div>
     <el-table
       :data="list"
       element-loading-text="Loading"
@@ -58,11 +52,8 @@
       </el-table-column>
       <el-table-column  label="Actions" align="center" width="330" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.isReturn === 0" type="primary" size="mini" @click="borrowing(scope.row.id)">
-            還書
-          </el-button>
-          <div v-else-if="scope.row.isReturn === 1">
-            已還書
+          <div>
+            已逾期
           </div>
         </template>
       </el-table-column>
@@ -99,7 +90,7 @@ export default {
       var vm = this;
       this.axios({
         method:'POST',
-        url:'http://localhost:8085/borrowing/query',
+        url:'http://localhost:8085/borrowing/query/expired',
         data:{
           pageIndex: vm.listQuery.page,
 	        pageSize: vm.listQuery.limit
@@ -108,35 +99,6 @@ export default {
           vm.list = resp.data.data.pageData
           vm.total = resp.data.data.total
           console.log(resp)
-      });
-    },
-    addBorrow(){
-      this.$router.push("/addBorrow/index");
-    },
-    borrowing(id){
-      var vm = this;
-      this.axios({
-        method: 'GET',
-        url: 'http://localhost:8085/borrowing/return/'+id
-      }).then(function(resp){
-        console.log(resp);
-        console.log(resp.data.message)
-        if(resp.data.message == "success"){
-          //彈框
-          vm.$message({
-            message: '還書成功',
-            type: 'success'
-          });
-          vm.list = null;
-          vm.getList();
-        }else{
-          vm.$message({
-            message: '還書失敗',
-            type: 'error'
-          });
-        }
-      }).catch(function(error){
-          vm.$message.error('刪除失敗');
       });
     }
   }

@@ -8,10 +8,10 @@
           <el-input v-model="borrow.bookName" />
         </el-form-item>
         <el-form-item label="借閱日期">
-          <el-calendar v-model="borrowDateValue"></el-calendar>
+          <el-calendar v-model="borrow.borrowDate"></el-calendar>
         </el-form-item>
         <el-form-item label="借閱期限">
-          <el-calendar v-model="deadlineDateValue"></el-calendar>
+          <el-calendar v-model="borrow.borrowingDeadLine"></el-calendar>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit">新增借閱</el-button>
@@ -28,8 +28,8 @@ export default {
       borrow: {
         bookName: "",
         username: "",
-        borrowDate: "",
-        borrowingDeadLine: ""
+        borrowDate: new Date(),
+        borrowingDeadLine: new Date()
       },
       borrowDateValue: new Date(),
       deadlineDateValue: new Date() 
@@ -41,6 +41,7 @@ export default {
   },
 
   methods: {
+
     onSubmit() {
       var vm = this;
       this.axios({
@@ -55,10 +56,10 @@ export default {
           });
           vm.$router.push("/borrow")
         }).catch((error) => { 
-          console.error(error) 
-            vm.$message({
-            message: '新增失敗',
-            type: 'error'
+          console.log(error.response);
+          vm.$message({
+          message: '新增失敗 原因:' + error.response.data.message,
+          type: 'error'
           });
         })
     }

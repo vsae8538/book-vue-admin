@@ -239,6 +239,7 @@ export const constantRoutes = [
 
   {
     path: '/form',
+    hidden: true,
     component: Layout,
     children: [
       {
@@ -253,6 +254,7 @@ export const constantRoutes = [
 
   {
     path: '/nested',
+    hidden: true,
     component: Layout,
     redirect: '/nested/menu1',
     name: 'Nested',

@@ -33,11 +33,13 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        console.log('response的data是',response.data);
+        const data = response.data.data.token;
+        commit('SET_TOKEN', data)
+        setToken(data)
         resolve()
       }).catch(error => {
+        console.log(error);
         reject(error)
       })
     })

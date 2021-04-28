@@ -34,7 +34,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         console.log('response的data是',response.data);
-        const data = response.data.data.token;
+        const data = response.data.token;
         commit('SET_TOKEN', data)
         setToken(data)
         resolve()
@@ -50,17 +50,16 @@ const actions = {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
         const { data } = response
-
+        console.log('info:',data)
         if (!data) {
           return reject('Verification failed, please Login again.')
         }
-
-        const { name, avatar } = data
-
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
+        
+        commit('SET_NAME', data.name)
+        commit('SET_AVATAR', data.avatar)
         resolve(data)
       }).catch(error => {
+        console.log(error)
         reject(error)
       })
     })

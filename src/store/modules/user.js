@@ -67,6 +67,7 @@ const actions = {
 
   // user logout
   logout({ commit, state }) {
+    console.log(state.token);
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken() // must remove  token  first

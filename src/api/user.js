@@ -16,9 +16,10 @@ export function getInfo(token) {
   })
 }
 
-export function logout() {
+export function logout(token) {
   return request({
     url: '/system/logout',
-    method: 'post'
+    method: 'get',
+    params: { token }
   })
 }

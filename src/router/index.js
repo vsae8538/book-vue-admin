@@ -77,7 +77,21 @@ export const constantRoutes = [
       }
     ]
   },
-
+  {
+    path: '/admin',
+    component: Layout,
+    redirect: '/admin/table',
+    name: 'Admin Manage',
+    meta: { title: 'Admin Manage', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'table',
+        name: 'Admin',
+        component: () => import('@/views/admin/index'),
+        meta: { title: 'Admin', icon: 'table' }
+      }
+    ]
+  },
   {
     path: '/category',
     component: Layout,

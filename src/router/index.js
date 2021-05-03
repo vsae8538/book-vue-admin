@@ -93,6 +93,19 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/editAdmin',
+    hidden: true,
+    component: Layout,
+    children: [
+      {
+        path: 'index/:id',
+        name: 'editAdmin',
+        component: () => import('@/views/editAdmin/index'),
+        meta: { title: 'editAdmin', icon: 'form' }
+      }
+    ]
+  },
+  {
     path: '/category',
     component: Layout,
     redirect: '/category/table',

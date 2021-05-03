@@ -1,12 +1,5 @@
 <template>
   <div class="app-container">
-
-    <div align="right">
-      <el-button type="success" @click="addAdmin()">新增管理員</el-button>
-    </div>
-    <div align="right">
-      <span></br></span>
-    </div>
     <el-table
       :data="list"
       element-loading-text="Loading"
@@ -19,18 +12,38 @@
           {{ scope.$index }}
         </template>
       </el-table-column>
-      <el-table-column label="目錄名稱"  width="500" align="center">
+      <el-table-column label="管理員名稱"  width="300" align="center">
         <template slot-scope="scope">
-          {{ scope.row.AdminName }}
+          {{ scope.row.username }}
         </template>
       </el-table-column>
-      <el-table-column label="Actions" align="center" width="1000" class-name="small-padding fixed-width">
+      <el-table-column label="密碼"  width="300" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.password }}
+        </template>
+      </el-table-column>
+      <el-table-column label="電子信箱"  width="200" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.email }}
+        </template>
+      </el-table-column>
+      <el-table-column label="電話"  width="250" align="center">
+        <template slot-scope="scope">
+          {{ scope.row.telPhone }}
+        </template>
+      </el-table-column>
+            <el-table-column label="頭像"  width="150" align="center">
+        <template slot-scope="scope">
+              <el-image
+                  style="width: 100px; height: 100px"
+                  :src="scope.row.avatar"
+              ></el-image>
+        </template>
+      </el-table-column>
+      <el-table-column label="Actions" align="center" width="300" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="editAdmin(scope.row.id)">
             編輯
-          </el-button>
-          <el-button size="mini" type="danger" @click="deleteAdmin(scope.row.id)">
-            刪除
           </el-button>
         </template>
       </el-table-column>
@@ -67,7 +80,7 @@ export default {
       var vm = this;
       this.axios({
         method:'POST',
-        url:'http://localhost:8085/admin/query',
+        url:'http://localhost:8085/system/query',
         data:{
           pageIndex: vm.listQuery.page,
 	        pageSize: vm.listQuery.limit
@@ -78,53 +91,10 @@ export default {
           console.log(resp)
         });
     }
-    // ,
-    // addAdmin(){
-    //   this.$router.push("/addAdmin/index");
-    // },
-    // editAdmin(id){
-    //   this.$router.push("/editAdmin/index/"+id);
-    // },
-    // deleteAdmin(id){
-    //   var vm = this;
-    //   this.axios({
-    //     method: 'DELETE',
-    //     url: 'http://localhost:8085/Admin/delete/'+id
-    //   }).then(function(resp){
-    //     console.log(resp);
-    //     console.log(resp.data.message)
-    //     if(resp.data.message == "success"){
-    //       //彈框
-    //       vm.$message({
-    //         message: '刪除成功',
-    //         type: 'success'
-    //       });
-    //       vm.list = null;
-    //       vm.getList(); //更新目錄列表
-    //     }else{
-    //       vm.$message({
-    //         message: '刪除失敗',
-    //         type: 'error'
-    //       });
-    //     }
-    //   }).catch(function(error){
-    //       vm.$message.error('刪除失敗');
-    //   });
-    // },
-    // fetchData() {
-    //     var vm = this;
-    //     this.axios({
-    //       method: 'post',
-    //       url: 'http://localhost:8085/Admin/query',
-    //       data: {
-    //         pageIndex: 1,
-    //         pageSize: 10
-    //       }
-    //     }).then(function(resp){
-    //       vm.list = resp.data.data.pageData
-    //       //console.log(resp.data.data.pageData)
-    //     });
-    // }
+    ,
+    editAdmin(id){
+      this.$router.push("/editAdmin/index/"+id);
+    }
   }
 }
 </script>

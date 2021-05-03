@@ -69,10 +69,7 @@ export default {
         telPhone: "",
         avatar: ""
       },
-      selectList : null,
-      selectValue: null,
       fileList : [],
-      isPublishValue: 0,
       msg : '',
       dialogVisible: false
     }
@@ -104,16 +101,13 @@ export default {
     },
     onSubmit() {
       var vm = this;
-
-      if(vm.admin.imageUrl == '') {
+      if(vm.admin.avatar == '') {
         this.$message({
-          message: '請選擇要上傳的文件',
+          message: '請選擇要上傳的頭像',
           type: 'error'
         })
         return false
       }
-
-
       this.axios({
         method: 'POST',
         url: 'http://localhost:8085/system/edit',
@@ -147,12 +141,12 @@ export default {
       console.log('上傳成功')
       console.log(response)
       if (response.message == 'success') {
-        vm.admin.imageUrl = response.data;
+        vm.admin.avatar = response.data;
         this.$message({
           message: '文件上傳成功',
           type: 'success'
         })
-        console.log(vm.admin.imageUrl);
+        console.log(vm.admin.avatar);
         vm.dialogVisible = false;
       }
     },

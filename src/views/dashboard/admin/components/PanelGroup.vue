@@ -7,9 +7,9 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            New Visits
+            總書籍數量
           </div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="countInfo.bookCount" :duration="2600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -20,9 +20,9 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Messages
+            使用者數量
           </div>
-          <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="countInfo.userCount" :duration="3000" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -33,9 +33,9 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Purchases
+            總借閱數量
           </div>
-          <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="countInfo.borrowCount" :duration="3200" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -46,9 +46,9 @@
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Shoppings
+            尚未還書數量
           </div>
-          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="countInfo.unreturnCount" :duration="3600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -62,9 +62,34 @@ export default {
   components: {
     CountTo
   },
+  data() {
+      return {
+        countInfo: {
+          bookCount: 0,
+          userCount: 0,
+          borrowCount: 0,
+          unreturnCount: 0
+        },
+      }
+    },
+
+  created(){
+    this.fetchData();
+  },
   methods: {
     handleSetLineChartData(type) {
       this.$emit('handleSetLineChartData', type)
+    },
+    fetchData(){
+      var vm = this;
+      this.axios({
+        method: 'GET',
+        url: 'http://localhost:8085/system/count'
+        }).then(function(resp){
+          console.log(resp)
+          vm.countInfo = resp.data.data;
+        })
+
     }
   }
 }

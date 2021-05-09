@@ -80,7 +80,7 @@ export default {
       var vm = this;
       this.axios({
         method:'POST',
-        url:'http://localhost:8085/system/query',
+        url:'http://localhost:8085/admin/query',
         data:{
           pageIndex: vm.listQuery.page,
 	        pageSize: vm.listQuery.limit

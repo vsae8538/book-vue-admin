@@ -85,7 +85,7 @@ export default {
         var vm = this;
         this.axios({
           method: 'GET',
-          url: 'http://localhost:8085/system/query/'+id
+          url: 'http://localhost:8085/admin/query/'+id
           }).then(function(resp){
             console.log(resp)
             vm.admin = resp.data.data;
@@ -110,7 +110,7 @@ export default {
       }
       this.axios({
         method: 'POST',
-        url: 'http://localhost:8085/system/edit',
+        url: 'http://localhost:8085/admin/edit',
         data: vm.admin
         }).then(function(resp){
           console.log(resp)

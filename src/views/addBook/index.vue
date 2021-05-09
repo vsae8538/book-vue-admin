@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-      <el-form ref="form" :model="form" label-width="120px">
+      <el-form ref="form" :model="book" label-width="120px">
         <el-form-item label="書籍名稱">
           <el-input v-model="book.name" />
         </el-form-item>

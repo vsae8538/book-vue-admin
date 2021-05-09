@@ -85,6 +85,8 @@
 <script>
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { queryList } from '@/api/book'
+import { deleteOne } from '@/api/book'
 
 export default {
   components: { Pagination },
@@ -99,26 +101,19 @@ export default {
     }
   },
   created() {
-    //this.fetchData()
     this.getList()
   },
   methods: {
     getList() {
       var vm = this;
-      this.axios({
-        method:'POST',
-        url:'http://localhost:8085/book/query',
-        data:{
-          pageIndex: vm.listQuery.page,
-	        pageSize: vm.listQuery.limit
-        }
-      }).then(function(resp){
-          vm.list = resp.data.data.pageData
-          vm.total = resp.data.data.total
-          console.log(resp)
-        });
+      queryList(vm.listQuery).then(function(resp){
+        console.log(resp);
+        vm.list = resp.data.pageData;
+        vm.total = resp.data.total; 
+      }).catch(function(error){
+          vm.$message.error('沒有書籍');
+      });
     },
-
     addBook(){
       this.$router.push("/addBook/index");
     },
@@ -127,19 +122,14 @@ export default {
     },
     deleteBook(id){
       var vm = this;
-      this.axios({
-        method: 'DELETE',
-        url: 'http://localhost:8085/book/delete/'+id
-      }).then(function(resp){
-        console.log(resp);
-        console.log(resp.data.message)
-        if(resp.data.message == "success"){
+      deleteOne(id).then(response => {
+        console.log(response);
+        if(response.message == "success"){
           //彈框
           vm.$message({
             message: '刪除成功',
             type: 'success'
           });
-          //vm.fetchData(); //更新書籍列表
           vm.list = null;
           vm.getList();
         }else{
@@ -151,20 +141,6 @@ export default {
       }).catch(function(error){
           vm.$message.error('刪除失敗');
       });
-    },
-    fetchData() {
-        var vm = this;
-        this.axios({
-          method: 'post',
-          url: 'http://localhost:8085/book/query',
-          data: {
-            pageIndex: 1,
-            pageSize: 10
-          }
-        }).then(function(resp){
-          vm.list = resp.data.data.pageData
-          //console.log(resp.data.data.pageData)
-        });
     }
   }
 }

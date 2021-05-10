@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-      <el-form ref="form" :model="form" label-width="120px">
+      <el-form ref="form" :model="user" label-width="120px">
         <el-form-item label="使用者名稱">
           <el-input v-model="user.userName" />
         </el-form-item>
@@ -25,6 +25,9 @@
 </template>
 
 <script>
+
+import { addUser } from '@/api/user'
+
 export default {
   data() {
     return {
@@ -46,18 +49,15 @@ export default {
 
     onSubmit() {
       var vm = this;
-      this.axios({
-        method: 'POST',
-        url: 'http://localhost:8085/user/add',
-        data: vm.user
-        }).then(function(resp){
-          console.log(resp)
+
+      addUser(vm.user).then(response =>{
+          console.log(response)
           vm.$message({
             message: '新增成功',
             type: 'success'
           });
           vm.$router.push("/user")
-        }).catch((error) => { 
+      }).catch((error) => { 
           console.error(error) 
             vm.$message({
             message: '新增失敗',

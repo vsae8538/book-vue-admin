@@ -1,6 +1,6 @@
 <template>
    <div class="app-container">
-      <el-form ref="form" :model="form" label-width="120px">
+      <el-form ref="form" :model="book" label-width="120px">
         <el-form-item label="書籍名稱">
           <el-input v-model="book.name" />
         </el-form-item>
@@ -80,6 +80,10 @@
 </template>
 
 <script>
+
+import { queryBook, editBook } from '@/api/book'
+import { queryCategoryList } from '@/api/category'
+
 export default {
   data() {
     return {
@@ -109,18 +113,14 @@ export default {
 
   methods: {
     fetchDataById(){
-        var id = this.$route.params.id;
-        var vm = this;
-        this.axios({
-          method: 'GET',
-          url: 'http://localhost:8085/book/query/'+id
-          }).then(function(resp){
-            console.log(resp)
-            //選擇列表填值
-            vm.book = resp.data.data;
-            vm.selectValue = vm.book.categoryId;
-            console.log(vm.selectValue);
-          })
+      var id = this.$route.params.id;
+      var vm = this;
+
+      queryBook(id).then(response => {
+        console.log(response);
+        vm.book = response.data;
+        vm.selectValue = vm.book.categoryId;
+      })
 
     },
 
@@ -146,38 +146,31 @@ export default {
       vm.book.categoryId = vm.selectValue;
       vm.book.isPublish = vm.isPublishValue;
 
-      this.axios({
-        method: 'POST',
-        url: 'http://localhost:8085/book/edit',
-        data: vm.book
-        }).then(function(resp){
-          console.log(resp)
+      editBook(vm.book).then(response => {
+        console.log(response)
           vm.$message({
             message: '修改成功',
             type: 'success'
           });
           vm.$router.push("/book")
-        }).catch((error) => { 
+      }).catch((error) => { 
           console.error(error) 
             vm.$message({
             message: '修改失敗',
             type: 'error'
           });
-        })
+      })
     },
     getCategorySelectList(){
-      var vm = this
-      this.axios({
-        method : 'POST', 
-        url:'http://localhost:8085/category/query',
-        data:{
-          pageIndex: 1,
-	        pageSize: 50
-        }
-        }).then(function(resp){
-            vm.selectList = resp.data.data.pageData
-            console.log(resp)
-        });
+      var vm = this;
+      var data = {
+          page: 1,
+	        limit: 50
+      };
+      queryCategoryList(data).then(response => {
+        console.log(response);
+        vm.selectList = response.data.pageData;
+      })
     },
     handleFileChange(file, fileList) {
       console.log('文件改變')

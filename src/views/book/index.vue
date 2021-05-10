@@ -85,8 +85,8 @@
 <script>
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { queryList } from '@/api/book'
-import { deleteOne } from '@/api/book'
+import { queryBookList,deleteBook } from '@/api/book'
+
 
 export default {
   components: { Pagination },
@@ -106,7 +106,7 @@ export default {
   methods: {
     getList() {
       var vm = this;
-      queryList(vm.listQuery).then(function(resp){
+      queryBookList(vm.listQuery).then(function(resp){
         console.log(resp);
         vm.list = resp.data.pageData;
         vm.total = resp.data.total; 
@@ -122,7 +122,7 @@ export default {
     },
     deleteBook(id){
       var vm = this;
-      deleteOne(id).then(response => {
+      deleteBook(id).then(response => {
         console.log(response);
         if(response.message == "success"){
           //彈框

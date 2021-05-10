@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-      <el-form ref="form" :model="form" label-width="120px">
+      <el-form ref="form" :model="user" label-width="120px">
         <el-form-item label="使用者名稱">
           <el-input v-model="user.userName" />
         </el-form-item>
@@ -25,56 +25,54 @@
 </template>
 
 <script>
+
+import { queryUser, editUser } from '@/api/user'
+
 export default {
   data() {
     return {
       user: {
         id: -1,
-	      userName : "(Empty)",
-	      password : "(Empty)",
-        email : "(Empty)",
-        telPhone : "(Empty)",
-        memo : "(Empty)"
+	      userName : "Empty",
+	      password : "Empty",
+        email : "Empty",
+        telPhone : "Empty",
+        memo : "Empty"
       },
       msg : ''
     }
   },
 
   created(){
-    this.fetchDataById();
+    this.fetchDataById(); 
   },
 
   methods: {
     fetchDataById(){
         var id = this.$route.params.id;
         var vm = this;
-        this.axios({
-          method: 'GET',
-          url: 'http://localhost:8085/user/query/'+id
-          }).then(function(resp){
-            console.log(resp)
-            vm.user = resp.data.data;
-          })
+      
+      queryUser(id).then(response => {
+          console.log(response)
+          vm.user = response.data;
+      })
     },
     onSubmit() {
       var vm = this;
       var msg = vm.msg;
-      this.axios({
-        method: 'POST',
-        url: 'http://localhost:8085/user/edit',
-        data: vm.user
-        }).then(function(resp){
-          console.log(resp)
-          msg = resp.data.data.message;
-          vm.$message({
-            message: '修改成功',
-            type: 'success'
-          });
-          vm.$router.push("/user")
-        }).catch((error) => { 
+
+      editUser(vm.user).then(response =>{
+        console.log(response)
+        msg = response.data.message;
+        vm.$message({
+          message: '修改成功',
+          type: 'success'
+        });
+        vm.$router.push("/user")
+      }).catch((error) => { 
           console.error(error) 
           msg = error;
-        })
+      })
     }
   }
 }

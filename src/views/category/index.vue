@@ -46,6 +46,7 @@
 <script>
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { queryCategoryList, deleteCategory } from '@/api/category'
 
 export default {
   components: { Pagination },
@@ -60,26 +61,19 @@ export default {
     }
   },
   created() {
-    //this.fetchData()
     this.getList()
   },
   methods: {
     getList() {
       var vm = this;
-      this.axios({
-        method:'POST',
-        url:'http://localhost:8085/category/query',
-        data:{
-          pageIndex: vm.listQuery.page,
-	        pageSize: vm.listQuery.limit
-        }
-      }).then(function(resp){
-          vm.list = resp.data.data.pageData
-          vm.total = resp.data.data.total
-          console.log(resp)
-        });
+      queryCategoryList(vm.listQuery).then(response => {
+        vm.list = response.data.pageData;
+        vm.total = response.data.total;
+        console.log(response);
+      }).catch(function(error){
+          vm.$message.error('沒有目錄');
+      });
     },
-
     addCategory(){
       this.$router.push("/addCategory/index");
     },
@@ -88,13 +82,11 @@ export default {
     },
     deleteCategory(id){
       var vm = this;
-      this.axios({
-        method: 'DELETE',
-        url: 'http://localhost:8085/category/delete/'+id
-      }).then(function(resp){
+
+      deleteCategory(id).then(resp => {
         console.log(resp);
-        console.log(resp.data.message)
-        if(resp.data.message == "success"){
+        console.log(resp.message)
+        if(resp.message == "success"){
           //彈框
           vm.$message({
             message: '刪除成功',
@@ -111,20 +103,6 @@ export default {
       }).catch(function(error){
           vm.$message.error('刪除失敗');
       });
-    },
-    fetchData() {
-        var vm = this;
-        this.axios({
-          method: 'post',
-          url: 'http://localhost:8085/category/query',
-          data: {
-            pageIndex: 1,
-            pageSize: 10
-          }
-        }).then(function(resp){
-          vm.list = resp.data.data.pageData
-          //console.log(resp.data.data.pageData)
-        });
     }
   }
 }

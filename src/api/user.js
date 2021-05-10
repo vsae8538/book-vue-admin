@@ -1,25 +1,42 @@
 import request from '@/utils/request'
 
-export function login(data) {
+export function queryUserList(listQuery) {
   return request({
-    url: '/admin/login',
+    url: '/user/query',
+    method: 'post',
+    data:{
+      pageIndex: listQuery.page,
+      pageSize: listQuery.limit
+    }
+  })
+}
+
+export function addUser(data) {
+  return request({
+    url: '/user/add',
     method: 'post',
     data
   })
 }
 
-export function getInfo(token) {
+export function queryUser(id) {
   return request({
-    url: '/admin/info',
-    method: 'get',
-    params: { token }
+    url: '/user/query/' + id,
+    method: 'get'
   })
 }
 
-export function logout(token) {
+export function deleteUser(id){
   return request({
-    url: '/admin/logout',
-    method: 'get',
-    params: { token }
+    url: '/user/delete/' + id,
+    method: 'delete'
+  })
+}
+
+export function editUser(data) {
+  return request({
+    url: '/user/edit',
+    method: 'Post',
+    data
   })
 }

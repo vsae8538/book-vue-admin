@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo } from '@/api/admin'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -28,7 +28,7 @@ const mutations = {
 }
 
 const actions = {
-  // user login
+  // admin login
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
@@ -45,7 +45,7 @@ const actions = {
     })
   },
 
-  // get user info
+  // get admin info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
@@ -65,7 +65,7 @@ const actions = {
     })
   },
 
-  // user logout
+  // admin logout
   logout({ commit, state }) {
     console.log(state.token);
     return new Promise((resolve, reject) => {

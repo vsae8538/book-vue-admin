@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function queryList(listQuery) {
+export function queryBookList(listQuery) {
   return request({
     url: '/book/query',
     method: 'post',
@@ -11,7 +11,7 @@ export function queryList(listQuery) {
   })
 }
 
-export function add(data) {
+export function addBook(data) {
   return request({
     url: '/book/add',
     method: 'post',
@@ -19,25 +19,24 @@ export function add(data) {
   })
 }
 
-export function queryOne(id) {
+export function queryBook(id) {
   return request({
     url: '/book/query/' + id,
-    method: 'get',
-    params: { token }
+    method: 'get'
   })
 }
 
-export function deleteOne(id){
+export function deleteBook(id){
   return request({
     url: '/book/delete/' + id,
     method: 'delete'
   })
 }
 
-export function edit(data) {
+export function editBook(data) {
   return request({
     url: '/book/edit',
-    method: 'delete',
+    method: 'Post',
     data
   })
 }

@@ -59,6 +59,9 @@
 </template>
 
 <script>
+
+import { editAdmin, queryAdmin } from '@/api/admin'
+
 export default {
   data() {
     return {
@@ -83,14 +86,11 @@ export default {
     fetchDataById(){
         var id = this.$route.params.id;
         var vm = this;
-        this.axios({
-          method: 'GET',
-          url: 'http://localhost:8085/admin/query/'+id
-          }).then(function(resp){
-            console.log(resp)
-            vm.admin = resp.data.data;
-          })
 
+        queryAdmin(id).then(response =>{
+            console.log(response)
+            vm.admin = response.data;
+        })
     },
     handleClose(done) {
       this.$confirm('確認關閉?')
@@ -108,18 +108,15 @@ export default {
         })
         return false
       }
-      this.axios({
-        method: 'POST',
-        url: 'http://localhost:8085/admin/edit',
-        data: vm.admin
-        }).then(function(resp){
-          console.log(resp)
-          vm.$message({
-            message: '修改成功',
-            type: 'success'
-          });
-          vm.$router.push("/admin")
-        }).catch((error) => { 
+
+      editAdmin(vm.admin).then(response =>{
+        console.log(response)
+        vm.$message({
+          message: '修改成功',
+          type: 'success'
+        });
+        vm.$router.push("/admin")
+      }).catch((error) => { 
           console.error(error) 
             vm.$message({
             message: '修改失敗',

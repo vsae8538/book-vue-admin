@@ -23,3 +23,29 @@ export function logout(token) {
     params: { token }
   })
 }
+
+export function queryAdminList(listQuery) {
+  return request({
+    url: '/admin/query',
+    method: 'post',
+    data:{
+      pageIndex: listQuery.page,
+      pageSize: listQuery.limit
+    }
+  })
+}
+
+export function queryAdmin(id) {
+  return request({
+    url: '/admin/query/' + id,
+    method: 'get'
+  })
+}
+
+export function editAdmin(data) {
+  return request({
+    url: '/admin/edit',
+    method: 'Post',
+    data
+  })
+}

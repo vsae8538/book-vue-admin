@@ -69,6 +69,7 @@
 <script>
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { queryExpiredBorrowingBooksList } from '@/api/borrow'
 
 export default {
   components: { Pagination },
@@ -88,18 +89,11 @@ export default {
   methods: {
     getList() {
       var vm = this;
-      this.axios({
-        method:'POST',
-        url:'http://localhost:8085/borrowing/query/expired',
-        data:{
-          pageIndex: vm.listQuery.page,
-	        pageSize: vm.listQuery.limit
-        }
-      }).then(function(resp){
-          vm.list = resp.data.data.pageData
-          vm.total = resp.data.data.total
-          console.log(resp)
-      });
+
+      queryExpiredBorrowingBooksList(vm.listQuery).then(response =>{
+          vm.list = response.data.pageData
+          vm.total = response.data.total
+      })
     }
   }
 }

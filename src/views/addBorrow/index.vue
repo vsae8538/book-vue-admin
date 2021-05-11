@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-      <el-form ref="form" :model="form" label-width="120px">
+      <el-form ref="form" :model="borrow" label-width="120px">
         <el-form-item label="使用者名稱">
           <el-input v-model="borrow.username" />
         </el-form-item>
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { addBorrowing } from '@/api/borrow'
+
 export default {
   data() {
     return {
@@ -41,21 +43,18 @@ export default {
   methods: {
     onSubmit() {
       var vm = this;
-      this.axios({
-        method: 'POST',
-        url: 'http://localhost:8085/borrowing/add',
-        data: vm.borrow
-        }).then(function(resp){
-          console.log(resp)
-          vm.$message({
-            message: '新增成功',
-            type: 'success'
-          });
-          vm.$router.push("/borrow")
-        }).catch((error) => { 
+
+      addBorrowing(vm.borrow).then(response =>{
+        console.log(response)
+        vm.$message({
+          message: '新增成功',
+          type: 'success'
+        });
+        vm.$router.push("/bookMange/borrow")
+      }).catch((error) => { 
           console.log(error.response);
           vm.$message({
-          message: '新增失敗 原因:' + error.response.data.message,
+          message: '新增失敗 原因:' + error.response.message,
           type: 'error'
           });
         })

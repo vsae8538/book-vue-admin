@@ -90,6 +90,7 @@ export default {
         queryAdmin(id).then(response =>{
             console.log(response)
             vm.admin = response.data;
+            vm.admin.password = '********';
         })
     },
     handleClose(done) {

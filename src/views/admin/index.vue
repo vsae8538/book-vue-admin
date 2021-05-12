@@ -19,7 +19,7 @@
       </el-table-column>
       <el-table-column label="密碼"  width="300" align="center">
         <template slot-scope="scope">
-          {{ scope.row.password }}
+          **********
         </template>
       </el-table-column>
       <el-table-column label="電子信箱"  width="200" align="center">

@@ -5,7 +5,7 @@
           <el-input v-model="user.userName" />
         </el-form-item>
         <el-form-item label="密碼">
-          <el-input v-model="user.password" />
+          <el-input v-model="user.password"  />
         </el-form-item>
           <el-form-item label="電子信箱">
         <el-input v-model="user.email" />
@@ -55,6 +55,7 @@ export default {
       queryUser(id).then(response => {
           console.log(response)
           vm.user = response.data;
+          vm.user.password = '********';
       })
     },
     onSubmit() {

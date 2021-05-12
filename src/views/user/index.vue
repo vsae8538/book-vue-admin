@@ -26,7 +26,7 @@
       </el-table-column>
       <el-table-column label="密碼" width="210" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.password }}</span>
+          <span> ******* </span>
         </template>
       </el-table-column>
       <el-table-column label="電子信箱" width="210" align="center">

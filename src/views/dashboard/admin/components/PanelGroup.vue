@@ -57,6 +57,7 @@
 
 <script>
 import CountTo from 'vue-count-to'
+import { getSystemCount } from '@/api/system'
 
 export default {
   components: {
@@ -82,14 +83,11 @@ export default {
     },
     fetchData(){
       var vm = this;
-      this.axios({
-        method: 'GET',
-        url: 'http://localhost:8085/system/count'
-        }).then(function(resp){
-          console.log(resp)
-          vm.countInfo = resp.data.data;
-        })
 
+      getSystemCount().then(response =>{
+          console.log(response)
+          vm.countInfo = response.data;
+      })
     }
   }
 }

@@ -65,7 +65,7 @@ export const constantRoutes = [
         path: 'table',
         name: 'Admin',
         component: () => import('@/views/admin/index'),
-        meta: { title: 'Admin', icon: 'table' }
+        meta: { title: 'Admin', icon: 'user' }
       }
     ]
   },
@@ -93,7 +93,7 @@ export const constantRoutes = [
         path: 'table',
         name: 'category',
         component: () => import('@/views/category/index'),
-        meta: { title: 'Category', icon: 'table' }
+        meta: { title: 'Category', icon: 'clipboard' }
       }
     ]
   },
@@ -137,7 +137,7 @@ export const constantRoutes = [
         path: 'table',
         name: 'User',
         component: () => import('@/views/user/index'),
-        meta: { title: 'User', icon: 'table' }
+        meta: { title: 'User', icon: 'user' }
       }
     ]
   },
@@ -174,19 +174,19 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/bookMange/borrow',
     name: 'Book Mange',
-    meta: { title: 'Borrow', icon: 'el-icon-s-help' },
+    meta: { title: 'Borrow', icon: 'form' },
     children: [
       {
         path: 'borrow',
         name: 'Borrow',
         component: () => import('@/views/borrow/index'),
-        meta: { title: 'Borrow', icon: 'table' }
+        meta: { title: 'Borrow', icon: 'edit' }
       },      
       {
         path: 'expired',
         name: 'Expired',
         component: () => import('@/views/expired/index'),
-        meta: { title: 'Expired', icon: 'table' }
+        meta: { title: 'Expired', icon: 'eye-open' }
       }
     ]
   },
@@ -208,13 +208,13 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/book/table',
     name: 'Book',
-    meta: { title: 'Book', icon: 'el-icon-s-help' },
+    meta: { title: 'Book', icon: 'book' },
     children: [
       {
         path: 'table',
         name: 'Book',
         component: () => import('@/views/book/index'),
-        meta: { title: 'Book', icon: 'table' }
+        meta: { title: 'Book', icon: 'book' }
       }
     ]
   },

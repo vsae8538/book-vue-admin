@@ -30,7 +30,9 @@ export function queryAdminList(listQuery) {
     method: 'post',
     data:{
       pageIndex: listQuery.page,
-      pageSize: listQuery.limit
+      pageSize: listQuery.limit,
+      username: listQuery.username,
+      telPhone: listQuery.telPhone
     }
   })
 }

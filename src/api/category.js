@@ -6,7 +6,8 @@ export function queryCategoryList(listQuery) {
     method: 'post',
     data:{
       pageIndex: listQuery.page,
-      pageSize: listQuery.limit
+      pageSize: listQuery.limit,
+      categoryName: listQuery.categoryName
     }
   })
 }

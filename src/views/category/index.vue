@@ -1,6 +1,13 @@
 <template>
   <div class="app-container">
 
+  <div class="filter-container">
+    <el-input v-model="listQuery.categoryName" placeholder="category Name" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+    <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+      Search
+    </el-button>
+  </div>
+
     <div align="right">
       <el-button type="success" @click="addCategory()">新增目錄</el-button>
     </div>
@@ -47,6 +54,7 @@
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { queryCategoryList, deleteCategory } from '@/api/category'
+import waves from '@/directive/waves' // waves directive
 
 export default {
   components: { Pagination },
@@ -56,7 +64,8 @@ export default {
       total: 0,
       listQuery: {
         page: 1,
-        limit: 20
+        limit: 20,
+        categoryName: undefined
       }
     }
   },
@@ -69,9 +78,9 @@ export default {
       queryCategoryList(vm.listQuery).then(response => {
         vm.list = response.data.pageData;
         vm.total = response.data.total;
-        console.log(response);
       }).catch(function(error){
           vm.$message.error('沒有目錄');
+          vm.list = null;
       });
     },
     addCategory(){
@@ -79,6 +88,12 @@ export default {
     },
     editCategory(id){
       this.$router.push("/editCategory/index/"+id);
+    },
+    handleFilter() {
+      var vm = this;
+      vm.listQuery.page = 1;
+      
+      vm.getList();
     },
     deleteCategory(id){
       var vm = this;

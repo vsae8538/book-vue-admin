@@ -1,6 +1,14 @@
 <template>
   <div class="app-container">
 
+  <div class="filter-container">
+    <el-input v-model="listQuery.bookName" placeholder="Book Name" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+    <el-input v-model="listQuery.author" placeholder="Author" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+    <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+      Search
+    </el-button>
+  </div>
+
     <div align="right">
       <el-button type="success" @click="addBook()">新增書籍</el-button>
     </div>
@@ -86,17 +94,20 @@
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { queryBookList,deleteBook } from '@/api/book'
-
+import waves from '@/directive/waves' // waves directive
 
 export default {
   components: { Pagination },
+  directives: { waves },
   data() {
     return {
       list: null,
       total: 0,
       listQuery: {
         page: 1,
-        limit: 20
+        limit: 20,
+        bookName: "",
+        author: ""
       }
     }
   },
@@ -105,14 +116,23 @@ export default {
   },
   methods: {
     getList() {
+
       var vm = this;
+
       queryBookList(vm.listQuery).then(function(resp){
         console.log(resp);
         vm.list = resp.data.pageData;
         vm.total = resp.data.total; 
       }).catch(function(error){
           vm.$message.error('沒有書籍');
+          vm.list = null;
       });
+    },
+    handleFilter() {
+      var vm = this;
+      vm.listQuery.page = 1;
+      
+      vm.getList();
     },
     addBook(){
       this.$router.push("/addBook/index");

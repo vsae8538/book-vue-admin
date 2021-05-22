@@ -6,7 +6,9 @@ export function queryBookList(listQuery) {
     method: 'post',
     data:{
       pageIndex: listQuery.page,
-      pageSize: listQuery.limit
+      pageSize: listQuery.limit,
+      bookName: listQuery.bookName,
+      author: listQuery.author
     }
   })
 }

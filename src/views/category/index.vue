@@ -58,6 +58,7 @@ import waves from '@/directive/waves' // waves directive
 
 export default {
   components: { Pagination },
+  directives: { waves },
   data() {
     return {
       list: null,

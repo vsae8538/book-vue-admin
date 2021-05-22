@@ -6,7 +6,9 @@ export function queryBorrowingList(listQuery) {
     method: 'post',
     data:{
       pageIndex: listQuery.page,
-      pageSize: listQuery.limit
+      pageSize: listQuery.limit,
+      userName: listQuery.username,
+      bookName: listQuery.bookName
     }
   })
 }
@@ -25,7 +27,9 @@ export function queryExpiredBorrowingBooksList(listQuery) {
     method: 'post',
     data:{
       pageIndex: listQuery.page,
-      pageSize: listQuery.limit
+      pageSize: listQuery.limit,
+      userName: listQuery.username,
+      bookName: listQuery.bookName
     }
   })
 }

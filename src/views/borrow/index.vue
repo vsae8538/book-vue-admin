@@ -1,7 +1,15 @@
 <template>
   <div class="app-container">
+    <div class="filter-container">
+      <el-input v-model="listQuery.username" placeholder="username" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.bookName" placeholder="book Name" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+        Search
+      </el-button>
+    </div>
+
       <div align="right">
-      <el-button type="success" @click="addBorrow()">新增借閱</el-button>
+      <el-button type="success" @click="addBorrow()">新增借閱人</el-button>
     </div>
     <div align="right">
       <span></br></span>
@@ -79,17 +87,20 @@
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { returnBook , queryBorrowingList } from '@/api/borrow'
-
+import waves from '@/directive/waves' // waves directive
 
 export default {
   components: { Pagination },
+  directives: { waves },
   data() {
     return {
       list: null,
       total: 0,
       listQuery: {
         page: 1,
-        limit: 20
+        limit: 20,
+        username: "",
+        bookName: ""
       }
     }
   },
@@ -104,6 +115,12 @@ export default {
           vm.total = response.data.total
           console.log(response)
       })
+    },
+    handleFilter() {
+      var vm = this;
+      vm.listQuery.page = 1;
+      
+      vm.getList();
     },
     addBorrow(){
       this.$router.push("/addBorrow/index");

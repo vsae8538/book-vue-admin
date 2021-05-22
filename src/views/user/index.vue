@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
-  <div class="filter-container">
-    <el-input v-model="listQuery.username" placeholder="username" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-    <el-input v-model="listQuery.telPhone" placeholder="telPhone" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-    <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
-      Search
-    </el-button>
-  </div>
+    <div class="filter-container">
+      <el-input v-model="listQuery.username" placeholder="username" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.telPhone" placeholder="telPhone" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+        Search
+      </el-button>
+    </div>
 
     <div align="right">
       <el-button type="success" @click="addUser()">新增使用者</el-button>
@@ -78,13 +78,16 @@ import waves from '@/directive/waves' // waves directive
 
 export default {
   components: { Pagination },
+  directives: { waves },
   data() {
     return {
       list: null,
       total: 0,
       listQuery: {
         page: 1,
-        limit: 20
+        limit: 20,
+        username: "",
+        telPhone: ""
       }
     }
   },

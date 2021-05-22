@@ -6,7 +6,9 @@ export function queryUserList(listQuery) {
     method: 'post',
     data:{
       pageIndex: listQuery.page,
-      pageSize: listQuery.limit
+      pageSize: listQuery.limit,
+      userName: listQuery.username,
+      telPhone: listQuery.telPhone
     }
   })
 }

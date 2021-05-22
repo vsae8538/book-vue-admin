@@ -1,5 +1,12 @@
 <template>
   <div class="app-container">
+  <div class="filter-container">
+    <el-input v-model="listQuery.username" placeholder="username" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+    <el-input v-model="listQuery.telPhone" placeholder="telPhone" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+    <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+      Search
+    </el-button>
+  </div>
 
     <div align="right">
       <el-button type="success" @click="addUser()">新增使用者</el-button>
@@ -67,6 +74,7 @@
 
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { queryUserList, deleteUser } from '@/api/user'
+import waves from '@/directive/waves' // waves directive
 
 export default {
   components: { Pagination },
@@ -88,12 +96,19 @@ export default {
       var vm = this;
 
       queryUserList(vm.listQuery).then(response =>{
-          vm.list = response.data.pageData
-          vm.total = response.data.total
-          console.log(response)
-      })
+          vm.list = response.data.pageData;
+          vm.total = response.data.total;
+          console.log(response);
+      }).catch(function(error){
+          vm.list = null;
+      });
     },
-
+    handleFilter() {
+      var vm = this;
+      vm.listQuery.page = 1;
+      
+      vm.getList();
+    },
     addUser(){
       this.$router.push("/addUser/index");
     },

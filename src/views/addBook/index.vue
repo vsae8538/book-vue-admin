@@ -39,6 +39,7 @@
             list-type="picture-card"
             ref="upload"
             action="http://localhost:8085/upload/image"
+            :headers = "headers"
             :on-change="handleFileChange"
             :on-remove="handleFileRemove"
             :on-success="uploadSuccess"
@@ -91,9 +92,15 @@
 </style>
 
 <script>
+import { getToken } from '@/utils/auth'
+import { addBook } from '@/api/book'
+
 export default {
   data() {
     return {
+      headers: {
+        Authorization: getToken()
+      },
       book: {
         name: "",
         author: "",
@@ -183,18 +190,14 @@ export default {
       vm.book.categoryId = vm.selectValue;
       vm.book.isPublish = vm.isPublishValue;
 
-      this.axios({
-        method: 'POST',
-        url: 'http://localhost:8085/book/add',
-        data: vm.book
-        }).then(function(resp){
-          console.log(resp)
+      addBook(vm.book).then(response => {
+          console.log(response)
           vm.$message({
             message: '新增成功',
             type: 'success'
           });
           vm.$router.push("/book")
-        }).catch((error) => { 
+      }).catch((error) => { 
           console.error(error) 
             vm.$message({
             message: '新增失敗',

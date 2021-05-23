@@ -77,7 +77,7 @@ export const constantRoutes = [
       {
         path: 'index/:id',
         name: 'editAdmin',
-        component: () => import('@/views/editAdmin/index'),
+        component: () => import('@/views/admin/editAdmin/index'),
         meta: { title: 'editAdmin', icon: 'form' }
       }
     ]
@@ -106,7 +106,7 @@ export const constantRoutes = [
       {
         path: 'index/:id',
         name: 'editCategory',
-        component: () => import('@/views/editCategory/index'),
+        component: () => import('@/views/category/editCategory/index'),
         meta: { title: 'editCategory', icon: 'form' }
       }
     ]
@@ -120,7 +120,7 @@ export const constantRoutes = [
       {
         path: 'index',
         name: 'addCategory',
-        component: () => import('@/views/addCategory/index'),
+        component: () => import('@/views/category/addCategory/index'),
         meta: { title: 'addCategory', icon: 'form' }
       }
     ]
@@ -150,7 +150,7 @@ export const constantRoutes = [
       {
         path: 'index/:id',
         name: 'editUser',
-        component: () => import('@/views/editUser/index'),
+        component: () => import('@/views/user/editUser/index'),
         meta: { title: 'editUser', icon: 'form' }
       }
     ]
@@ -164,7 +164,7 @@ export const constantRoutes = [
       {
         path: 'index',
         name: 'addUser',
-        component: () => import('@/views/addUser/index'),
+        component: () => import('@/views/user/addUser/index'),
         meta: { title: 'addUser', icon: 'form' }
       }
     ]
@@ -198,7 +198,7 @@ export const constantRoutes = [
       {
         path: 'index',
         name: 'addBorrow',
-        component: () => import('@/views/addBorrow/index'),
+        component: () => import('@/views/borrow/addBorrow/index'),
         meta: { title: 'addBorrow', icon: 'form' }
       }
     ]
@@ -227,7 +227,7 @@ export const constantRoutes = [
       {
         path: 'index',
         name: 'addBook',
-        component: () => import('@/views/addBook/index'),
+        component: () => import('@/views/book/addBook/index'),
         meta: { title: 'addBook', icon: 'form' }
       }
     ]
@@ -241,7 +241,7 @@ export const constantRoutes = [
       {
         path: 'index/:id',
         name: 'editBook',
-        component: () => import('@/views/editBook/index'),
+        component: () => import('@/views/book/editBook/index'),
         meta: { title: 'editBook', icon: 'form' }
       }
     ]

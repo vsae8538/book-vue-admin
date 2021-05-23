@@ -117,13 +117,7 @@ export default {
           type: 'success'
         });
         vm.$router.push("/admin")
-      }).catch((error) => { 
-          console.error(error) 
-            vm.$message({
-            message: '修改失敗',
-            type: 'error'
-          });
-        })
+      })
     },
     handleFileChange(file, fileList) {
       console.log('文件改變')

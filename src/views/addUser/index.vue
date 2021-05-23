@@ -57,13 +57,7 @@ export default {
             type: 'success'
           });
           vm.$router.push("/user")
-      }).catch((error) => { 
-          console.error(error) 
-            vm.$message({
-            message: '新增失敗',
-            type: 'error'
-          });
-        })
+      })
     }
   }
 }

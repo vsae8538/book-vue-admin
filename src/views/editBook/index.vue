@@ -154,11 +154,6 @@ export default {
           });
           vm.$router.push("/book")
       }).catch((error) => { 
-          console.error(error) 
-            vm.$message({
-            message: '修改失敗',
-            type: 'error'
-          });
       })
     },
     getCategorySelectList(){

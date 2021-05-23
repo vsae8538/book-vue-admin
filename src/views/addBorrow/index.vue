@@ -51,13 +51,7 @@ export default {
           type: 'success'
         });
         vm.$router.push("/bookMange/borrow")
-      }).catch((error) => { 
-          console.log(error.response);
-          vm.$message({
-          message: '新增失敗 原因:' + error.response.message,
-          type: 'error'
-          });
-        })
+      })
     }
   }
 }

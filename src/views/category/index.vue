@@ -80,7 +80,6 @@ export default {
         vm.list = response.data.pageData;
         vm.total = response.data.total;
       }).catch(function(error){
-          vm.$message.error('沒有目錄');
           vm.list = null;
       });
     },
@@ -116,9 +115,7 @@ export default {
             type: 'error'
           });
         }
-      }).catch(function(error){
-          vm.$message.error('刪除失敗');
-      });
+      })
     }
   }
 }

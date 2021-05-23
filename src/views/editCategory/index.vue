@@ -53,10 +53,7 @@ export default {
             type: 'success'
           });
           vm.$router.push("/category")
-      }).catch((error) => { 
-          console.error(error) 
-          msg = error;
-        })
+      })
     }
   }
 }

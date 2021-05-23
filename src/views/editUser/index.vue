@@ -70,9 +70,6 @@ export default {
           type: 'success'
         });
         vm.$router.push("/user")
-      }).catch((error) => { 
-          console.error(error) 
-          msg = error;
       })
     }
   }

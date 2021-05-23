@@ -158,9 +158,7 @@ export default {
             type: 'error'
           });
         }
-      }).catch(function(error){
-          vm.$message.error('刪除失敗');
-      });
+      })
     }
   }
 }

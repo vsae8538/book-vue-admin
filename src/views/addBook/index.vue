@@ -197,13 +197,7 @@ export default {
             type: 'success'
           });
           vm.$router.push("/book")
-      }).catch((error) => { 
-          console.error(error) 
-            vm.$message({
-            message: '新增失敗',
-            type: 'error'
-          });
-        })
+      })
     },
 
     getCategorySelectList(){
